@@ -16,25 +16,33 @@ class App extends React.Component {
         })
     }
 
-    buyButton = () => {
-        this.state({
-            availableProducts: this.state.availableProducts - this.state.shoppingCart,
-        })
+    handleBuy = (props) => {
+       this.setState({
+           availableProducts: this.state.availableProducts - this.state.shoppingCart,
+           shoppingCart: 0,
+       })
     }
     
     render() {
+        const { shoppingCart, availableProducts } = this.state;
+        const { handleRemoveFromCart, handleAddToCart, handleBuy } = this;
+        const style = shoppingCart === 0 ?  { opacity: 0.3, } : {};
+
         return (
             <div>
-                <h1>Available Products in the Warehouse: {this.state.availableProducts}</h1>
+                <h1>Available Products in the Warehouse: { availableProducts }</h1>
                 <button
-                    disabled={this.state.shoppingCart ? false : true}
-                    onClick={this.handleRemoveFromCart}
+                    disabled={ shoppingCart ? false : true }
+                    onClick={ handleRemoveFromCart }
                 >-</button>
-                <span> {this.state.shoppingCart} </span>
+
+                <span style={ style }> { shoppingCart } </span>
+
                 <button
-                    onClick={this.handleAddToCart}
+                    disabled={ shoppingCart === availableProducts ? true : false }
+                    onClick={ handleAddToCart }
                 >+</button>
-                {this.state.shoppingCart > 0 && <button onClick={this.buyButton}>Buy</button>}
+                { shoppingCart > 0 && <button onClick={ handleBuy }>Buy</button> }
             </div>
         )
     }
