@@ -16,3 +16,11 @@ li:nth-child(even) {
 li:nth-child(odd) {
     background-color: #ccc;
 }
+
+.enabled {
+    font-weight: bold;
+}
+
+.disabled {
+    color: gray;
+}
